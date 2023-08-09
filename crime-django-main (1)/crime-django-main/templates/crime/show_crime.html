@@ -1,0 +1,56 @@
+{% extends 'crime/base.html' %}
+
+{% block content %}
+	
+	<h1>Crimes</h1>
+<br/>
+<table class="table table-striped table-hover table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Location</th>
+      <th scope="col">Coordinate</th>
+    </tr>
+  </thead>
+  {% for crime in crimes %}
+		<tr>
+      <td>{{ crime.crime_type }}</td>
+			<td>{{crime.day}}/{{crime.month}}/{{ crime.year }} </td>
+      <td>{{crime.hour}}:{{crime.minute}}</td>
+      <td>{{crime.block}} {{crime.neighbor}}</td>
+      <td>{{crime.x}} {{crime.y}}</td>
+		</tr>
+	{% endfor %}
+</table>
+<br/></br/>
+
+
+<p>Current Page: {{ crimes.number }}</p> <br></br>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    
+ 
+
+{% if crimes.has_previous %}
+	<li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+
+	<li class="page-item"><a class="page-link" href="?page={{ crimes.previous_page_number }}">Previous</a></li>
+	
+{% endif %}
+
+
+{% if crimes.has_next %}
+	<li class="page-item"><a class="page-link" href="?page={{ crimes.next_page_number }}">Next</a></li>
+
+	<li class="page-item"><a class="page-link" href="?page={{ crimes.paginator.num_pages }}">Last &raquo ({{ crimes.paginator.num_pages }})</a></li>
+
+{% endif %}
+
+ </ul>
+</nav>
+<br/>
+
+{% endblock %}
